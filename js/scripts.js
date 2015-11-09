@@ -225,7 +225,7 @@ $(document).ready(function(){
 
 });
 
-var apiKey = "64bfb75ab93d0abeedff735b0bdbb192";
+var apiKey = "your key";
 var basePath = '';
 var sizeOptions = '';
 var logo_sizes = '';	
