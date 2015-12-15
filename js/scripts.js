@@ -15,61 +15,63 @@ $(document).ready(function(){
 						console.log(data);
 						var html = "";
 						var x = 0;
-						movieArray = data.results;
-						$('#now-playing').html("<h2>Search Results</h2>");
-						$('#now-playing-wrapper').html("");
-						for(i=0; i<movieArray.length; i++){
-							x++;
-							var backdrop_path = movieArray[i].backdrop_path;
-							var genre_ids = movieArray[i].genre_ids;
-							var movieId = movieArray[i].id;
-							var title = movieArray[i].title;
-							var overview = movieArray[i].overview;
-							var popularity = movieArray[i].popularity;
-							var posterPath = movieArray[i].poster_path;
-							var profilePath =movieArray[i].profile_Path;
-							var releaseDate = movieArray[i].release_date;
-							var voteAverage = movieArray[i].vote_average;
-							var voteCount = movieArray[i].vote_count;	
+						setTimeout(function(){
+							movieArray = data.results;
+							$('#now-playing').html("<h2>Search Results</h2>");
+							$('#now-playing-wrapper').html("");
+							for(i=0; i<movieArray.length; i++){
+								x++;
+								var backdrop_path = movieArray[i].backdrop_path;
+								var genre_ids = movieArray[i].genre_ids;
+								var movieId = movieArray[i].id;
+								var title = movieArray[i].title;
+								var overview = movieArray[i].overview;
+								var popularity = movieArray[i].popularity;
+								var posterPath = movieArray[i].poster_path;
+								var profilePath =movieArray[i].profile_Path;
+								var releaseDate = movieArray[i].release_date;
+								var voteAverage = movieArray[i].vote_average;
+								var voteCount = movieArray[i].vote_count;	
 
-							if(i==0){
-								html += '<div class="movie-row">';
-							}
-							if(x==5){
+								if(i==0){
+									html += '<div class="movie-row">';
+								}
+								if(x==5){
+									html += '</div>';
+									html += '<div class="movie-row">';
+									x=1;
+								}
+							if(posterPath === "null"){
+								html += '<div class="now-playing-movie">';
+								html += '<div class="null-class"></div></div>';
+
+							}else{
+								html += '<div class="now-playing-movie">';
+								html += '<img  data-toggle="modal" data-target="#myModal'+i+'"title="'+overview+'" alt="'+title+'" src="'+basePath+'w300'+posterPath+'"/>';
+								html += '<div class="modal fade" id="myModal'+i+'" tabindex="-1" role="dialog">';
+								html +=		  '<div class="modal-dialog">';
+								html +=		    '<div class="modal-content">';
+								html +=		      '<div class="modal-header">';
+								html +=		        '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+								html +=		      '</div>';
+								html +=		      '<div class="modal-body">';
+								html +=		        '<img src='+basePath+'w300'+backdrop_path+'><h3>'+title+'</h3><p>'+overview+'</p>';
+								html +=		      '</div>';
+								html +=		      '<div class="modal-footer">';
+								html +=		        '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+								html +=		      '</div>';
+								html +=		    '</div>';
+								html +=		  '</div>';
+								html +=		'</div>';
 								html += '</div>';
-								html += '<div class="movie-row">';
-								x=1;
+								
+								if(i == (movieArray.length-1)){
+									html += '</html>';
+									$(html).appendTo('#now-playing-wrapper');
+								}
 							}
-						if(posterPath === "null"){
-							html += '<div class="now-playing-movie">';
-							html += '<div class="null-class"></div></div>';
-
-						}else{
-							html += '<div class="now-playing-movie">';
-							html += '<img  data-toggle="modal" data-target="#myModal'+i+'"title="'+overview+'" alt="'+title+'" src="'+basePath+'w300'+posterPath+'"/>';
-							html += '<div class="modal fade" id="myModal'+i+'" tabindex="-1" role="dialog">';
-							html +=		  '<div class="modal-dialog">';
-							html +=		    '<div class="modal-content">';
-							html +=		      '<div class="modal-header">';
-							html +=		        '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-							html +=		      '</div>';
-							html +=		      '<div class="modal-body">';
-							html +=		        '<img src='+basePath+'w300'+backdrop_path+'><h3>'+title+'</h3><p>'+overview+'</p>';
-							html +=		      '</div>';
-							html +=		      '<div class="modal-footer">';
-							html +=		        '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
-							html +=		      '</div>';
-							html +=		    '</div>';
-							html +=		  '</div>';
-							html +=		'</div>';
-							html += '</div>';
-							
-							if(i == (movieArray.length-1)){
-								html += '</html>';
-								$(html).appendTo('#now-playing-wrapper');
 							}
-						}
-						}
+						},500);
 					});
 				break;
 
@@ -225,7 +227,7 @@ $(document).ready(function(){
 
 });
 
-var apiKey = "your key";
+var apiKey = "5ba8e4dcbc18c1e05cb4f2471465f44a";
 var basePath = '';
 var sizeOptions = '';
 var logo_sizes = '';	
